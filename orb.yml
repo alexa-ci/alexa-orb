@@ -30,6 +30,8 @@ commands:
     steps:
       - run: echo "hello <<parameters.greeting_name>>, from the inline command"
   deploy_command:
+    description: |
+      Deploys an Alexa skill into development stage
     parameters:
       stage_name:
         type: string
@@ -37,8 +39,12 @@ commands:
     steps:
       - run: ask deploy
   diff_command:
+    description: |
+      Takes a diff of your local version and the version on the server.
     steps:
-      - run: ask diff
+      - run:
+          command: ask diff
+          name: Ask Diff.
 executors:
   my_inline_executor:
     parameters:
@@ -56,3 +62,17 @@ executors:
       node:
         default: "10"
         type: string
+
+examples:
+  deploy-my-skill:
+    description: |
+      Deploys an example Alexa skill to Alexa developer console in development stage.
+    usage:
+      orbs:
+        alexa: alexa/alexa@0.0.2
+      version: 2.1
+      workflows:
+        push:
+          jobs:
+            - alexa/diff
+            - alexa/deploy
