@@ -34,8 +34,11 @@ commands:
       stage_name:
         type: string
         default: "development"
-      steps:
-        - run: ask deploy
+    steps:
+      - run: ask deploy
+  diff_command:
+    steps:
+      - run: ask diff
 executors:
   my_inline_executor:
     parameters:
