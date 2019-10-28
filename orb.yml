@@ -29,6 +29,13 @@ commands:
         type: string
     steps:
       - run: echo "hello <<parameters.greeting_name>>, from the inline command"
+  deploy_command:
+    parameters:
+      stage_name:
+        type: string
+        default: "development"
+      steps:
+        - run: ask deploy
 executors:
   my_inline_executor:
     parameters:
