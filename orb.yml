@@ -1,10 +1,11 @@
 version: 2.1
-description: # This is a CircleCi orb for Alexa skills
+description: # This is a CircleCi orb for Alexa skills, Please note that you need to set-up all the required environment values before being able to run the job! those include the AWS credentials and ASK credentials/tokens as described in this article: https://medium.com/p/21d8b3f3d737
 
 
 jobs:
   deploy_job:
     executor: default
+    name: deploy
     steps:
       - deploy_command
   install_job:
