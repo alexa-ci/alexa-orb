@@ -3,6 +3,10 @@ description: # This is a CircleCi orb for Alexa skills
 
 
 jobs:
+  deploy_job:
+    executor: default
+    steps:
+      - deploy_command
   install_job:
     executor: default
     steps:
