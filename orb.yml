@@ -37,12 +37,14 @@ commands:
       - when:
           condition: << parameters.is_forced >>
           steps:
+            - run: pwd
             - run: sudo npm i -g ask-cli
             - run:
                 ask deploy --force
       - unless:
           condition: << parameters.is_forced >>
           steps:
+            - run: pwd
             - run: sudo npm i -g ask-cli
             - run:
                 ask deploy
@@ -50,6 +52,7 @@ commands:
     description: |
       Takes a diff of your local version and the version on the server.
     steps:
+      - run: pwd
       - run: sudo npm i -g ask-cli
       - run:
           command: ask diff
@@ -71,7 +74,7 @@ examples:
       Deploys an example Alexa skill to Alexa developer console in development stage.
     usage:
       orbs:
-        alexa: alexa/alexa@0.0.5
+        alexa: alexa/alexa@0.0.6
       version: 2.1
       workflows:
         push:
