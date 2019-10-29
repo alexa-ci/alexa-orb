@@ -4,7 +4,6 @@ description: # This is a CircleCi orb for Alexa skills, Please note that you nee
 
 jobs:
   deploy_job:
-    working_directory: ~/temp
     executor: default
     parameters:
       is_forced:
@@ -12,16 +11,17 @@ jobs:
         type: boolean
         default: false
     steps:
+      - checkout
       - deploy_command
   install_job:
-    working_directory: ~/temp
     executor: default
     steps:
+      - checkout
       - install_command
   diff_job:
-    working_directory: ~/temp
     executor: default
     steps:
+      - checkout
       - diff_command
 commands:
   install_command:
