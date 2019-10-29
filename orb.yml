@@ -37,17 +37,20 @@ commands:
       - when:
           condition: << parameters.is_forced >>
           steps:
+            - run: sudo npm i -g ask-cli
             - run:
                 ask deploy --force
       - unless:
           condition: << parameters.is_forced >>
           steps:
+            - run: sudo npm i -g ask-cli
             - run:
                 ask deploy
   diff_command:
     description: |
       Takes a diff of your local version and the version on the server.
     steps:
+      - run: sudo npm i -g ask-cli
       - run:
           command: ask diff
           name: Ask Diff.
