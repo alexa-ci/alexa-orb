@@ -38,6 +38,7 @@ commands:
           condition: << parameters.is_forced >>
           steps:
             - run: pwd
+            - run: ls -la
             - run: sudo npm i -g ask-cli
             - run:
                 ask deploy --force
@@ -45,6 +46,7 @@ commands:
           condition: << parameters.is_forced >>
           steps:
             - run: pwd
+            - run: ls -la
             - run: sudo npm i -g ask-cli
             - run:
                 ask deploy
@@ -53,6 +55,7 @@ commands:
       Takes a diff of your local version and the version on the server.
     steps:
       - run: pwd
+      - run: ls -la
       - run: sudo npm i -g ask-cli
       - run:
           command: ask diff
