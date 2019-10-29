@@ -5,44 +5,41 @@ description: # This is a CircleCi orb for Alexa skills, Please note that you nee
 jobs:
   deploy_job:
     executor: default
-    name: deploy
+    parameters:
+      is_forced:
+        description: # If true a deployment will be forced even if the local and remote code bases have conflicting versions
+        type: boolean
+        default: false
     steps:
       - deploy_command
   install_job:
     executor: default
     steps:
       - install_command
-  my_inline_job:
-    parameters:
-      greeting_name:
-        description: # a helpful description
-        type: string
-        default: olleh
-    executor: my_inline_executor
-    steps:
-      - my_inline_command:
-          greeting_name: <<parameters.greeting_name>>
 commands:
   install_command:
     steps:
       - run: sudo npm i -g ask-cli
       - run: ask -v
       - run: ask api list-skills
-  my_inline_command:
-    parameters:
-      greeting_name:
-        type: string
-    steps:
-      - run: echo "hello <<parameters.greeting_name>>, from the inline command"
   deploy_command:
     description: |
       Deploys an Alexa skill into development stage
     parameters:
-      stage_name:
-        type: string
-        default: "development"
+      is_forced:
+        type: boolean
+        default: false
     steps:
-      - run: ask deploy
+      - when:
+          condition: << parameters.is_forced >>
+          steps:
+            - run:
+                ask deploy --force
+      - unless:
+          condition: << parameters.is_forced >>
+          steps:
+            - run:
+                ask deploy
   diff_command:
     description: |
       Takes a diff of your local version and the version on the server.
@@ -51,13 +48,6 @@ commands:
           command: ask diff
           name: Ask Diff.
 executors:
-  my_inline_executor:
-    parameters:
-      version:
-        type: string
-        default: "2.4"
-    docker:
-      - image: circleci/ruby:<<parameters.version>>
   default:
     description: |
       Node 10 runtime environment
@@ -74,7 +64,7 @@ examples:
       Deploys an example Alexa skill to Alexa developer console in development stage.
     usage:
       orbs:
-        alexa: alexa/alexa@0.0.2
+        alexa: alexa/alexa@0.0.3
       version: 2.1
       workflows:
         push:
