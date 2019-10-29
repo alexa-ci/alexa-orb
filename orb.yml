@@ -16,6 +16,10 @@ jobs:
     executor: default
     steps:
       - install_command
+  diff_job:
+    executor: default
+    steps:
+      - diff_command
 commands:
   install_command:
     steps:
