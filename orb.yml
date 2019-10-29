@@ -71,7 +71,7 @@ examples:
       Deploys an example Alexa skill to Alexa developer console in development stage.
     usage:
       orbs:
-        alexa: alexa/alexa@0.0.3
+        alexa: alexa/alexa@0.0.5
       version: 2.1
       workflows:
         push:
